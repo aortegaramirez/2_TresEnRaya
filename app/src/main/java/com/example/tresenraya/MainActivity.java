@@ -97,19 +97,56 @@ public class MainActivity extends Activity {
         }
         marca(casilla);
 
-        casilla = partida.ia();
+        //Cambio de turno de jugador
+        int resultado = partida.turno();
 
-        while (partida.compruebaCasilla(casilla)!=true){
-            casilla=partida.ia();
+        if(resultado>0){
+            termina(resultado);
+            return;
         }
+        if(jugadores==1){
+            casilla = partida.ia();
 
-        //Cambio de turno de jugador
-        partida.turno();
+            while (partida.compruebaCasilla(casilla)!=true){
+                casilla=partida.ia();
+            }
 
-        marca(casilla);
 
-        //Cambio de turno de jugador
-        partida.turno();
+
+
+            marca(casilla);
+
+            //Cambio de turno de jugador
+            resultado = partida.turno();
+
+            if(resultado>0){
+                termina(resultado);
+            }
+        }
+    }
+
+    private void termina (int resultado){
+        String mensaje;
+
+        if(resultado==1){
+            mensaje = "Ganan Verdes";
+        }else if (resultado==2){
+            mensaje = "Ganan Rojas";
+        }else{
+            mensaje = "Empate..";
+        }
+        Toast toast=Toast.makeText(this,mensaje, Toast.LENGTH_LONG);
+
+        toast.setGravity(Gravity.CENTER,0,0);
+
+        toast.show();
+
+        partida=null;
+
+        ((Button)findViewById(R.id.unjug)).setEnabled(true);
+        ((RadioGroup)findViewById(R.id.configD)).setAlpha(1);
+        ((Button)findViewById(R.id.dosjug)).setEnabled(true);
+
     }
 
     private void marca (int casilla){

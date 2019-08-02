@@ -42,6 +42,7 @@
             <RadioButton
                 android:id="@+id/nomal"
                 style="@style/radio"
+                android:checked="true"
                 android:text="@string/normal" />
 
             <RadioButton
